@@ -81,6 +81,7 @@ function createGalleryItem(gallery) {
        href="${original}"
        >
          <img
+           loading="lazy";
            class="gallery__image"
            src="${preview}"
            data-source="${original}"
@@ -91,6 +92,9 @@ function createGalleryItem(gallery) {
   }).join('');
 }
 
+// оригинальное изображение картинки для модалки
+
+const modalImageEl = document.querySelector('.lightbox__image')
 
 
 // Открытие модального окна по клику на элементе галереи.
@@ -100,16 +104,19 @@ const lightboxModal = document.querySelector(".js-lightbox");
 galleryContainer.addEventListener('click', onModalOpen);
 
 
-function onModalOpen() {
+function onModalOpen(event) {
   event.preventDefault();
   window.addEventListener('keydown', onEscKeyPress);
-  console.log(event.target);
+  
   
   const isGalleryImage = event.target.classList.contains('gallery__image');
   if (!isGalleryImage) {
     return;
 }
-lightboxModal.classList.add('is-open');
+  lightboxModal.classList.add('is-open');
+  
+  modalImageEl.src = event.target.dataset.source;
+  modalImageEl.alt=event.target.alt;
 
 }
 
@@ -119,6 +126,7 @@ const closeModalBtn=document.querySelector('[data-action="close-lightbox"]')
 closeModalBtn.addEventListener('click', onCloseModal);
 
 function onCloseModal() {
+  window.removeEventListener('keydown', onEscKeyPress);
   lightboxModal.classList.remove('is-open');
 }
 // по нажатию на lightbox__overlay
@@ -126,7 +134,7 @@ function onCloseModal() {
 const overlayEl = document.querySelector('.lightbox__overlay');
 overlayEl.addEventListener('click', onOverlayClick);
 
-function onOverlayClick() {
+function onOverlayClick(event) {
   console.log(event.currentTarget);
     console.log(event.target);
    if (event.currentTarget === event.target) {
@@ -142,3 +150,5 @@ function onEscKeyPress(event) {
         onCloseModal();
     }
 }
+
+
