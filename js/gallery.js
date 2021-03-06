@@ -17,7 +17,7 @@ refs.closeModalBtn.addEventListener('click', onCloseModal);
 refs.overlayEl.addEventListener('click', onCloseModal);
 
 // по нажатию на стрелки "влево","вправо" - меняются картинки
-window.addEventListener('keydown', onModalChangeImgByKeyDown)
+window.addEventListener('keydown', ImgSlider)
 
 
 function modalImageAtr(src, alt) {
@@ -71,7 +71,7 @@ const arrayWithImgRefs = gallery.map(item => item.original)
 const arrayWithAltRefs = gallery.map(item => item.description)
   
 
-function onModalChangeImgByKeyDown(event) {
+function ImgSlider(event) {
     
     let indexOfImg = arrayWithImgRefs.indexOf(refs.modalImageEl.src);
     let indexOfIAlt = indexOfImg
